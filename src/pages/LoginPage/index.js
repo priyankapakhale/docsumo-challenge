@@ -1,27 +1,30 @@
 import React, { useState } from "react";
 import { ReactComponent as Logo } from "../../assets/icons/logo.svg";
-import axios from "axios";
+import { useDispatch, useSelector } from "react-redux";
+import { login } from "../../redux/actions/actions";
+import { Redirect } from "react-router";
 
 const LoginPage = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [response, setResponse] = useState(null);
   const [error, setError] = useState(null);
+
+  const dispatch = useDispatch();
+  const { user } = useSelector((state) => state);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post(
-        "https://apptesting.docsumo.com/api/v1/eevee/login/",
-        { email, password }
-      );
-      setResponse(response.data);
+      await dispatch(login(email, password));
+      setError(null);
     } catch (e) {
-      setError(e.error);
+      setError(e);
     }
   };
 
-  return (
+  return user ? (
+    <Redirect to="/" />
+  ) : (
     <div className="container">
       <div className="wrapper">
         <div className="login-container">

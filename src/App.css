@@ -183,4 +183,16 @@ header {
 
 .error {
   visibility: visible;
+  min-height: 14px;
+  margin-top: 14px;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 14px;
+  color: #e35b46;
+  text-align: center;
+}
+
+.hello {
+  padding-top: 50px;
+  text-align: center;
 }
